@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layanan – PT Idemu Sistem Sinergi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .services-main { background: white; }
+    .services-grid-main {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 60px;
+    }
+    .svc-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      background: white;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .svc-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(0,87,255,0.25);
+    }
+    .svc-card-top {
+      padding: 36px 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-card-top::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+    .svc-icon-wrap {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      color: white;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .svc-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .svc-tagline {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      position: relative;
+      z-index: 1;
+    }
+    .svc-card-body {
+      padding: 28px 32px;
+      flex: 1;
+    }
+    .svc-desc { font-size: 14.5px; color: var(--text-muted); line-height: 1.8; margin-bottom: 22px; }
+    .svc-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; }
+    .svc-features li {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+    .svc-features li i { color: var(--primary); font-size: 12px; }
+    .svc-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    .svc-cta:hover { gap: 12px; }
+
+    /* BG gradients */
+    .bg-blue   { background: linear-gradient(135deg, #0057FF, #0099FF); }
+    .bg-orange { background: linear-gradient(135deg, #FF8A00, #FFC107); }
+    .bg-green  { background: linear-gradient(135deg, #00B96B, #00D4A0); }
+    .bg-pink   { background: linear-gradient(135deg, #E91E8C, #FF6B6B); }
+    .bg-purple { background: linear-gradient(135deg, #7C3AED, #A855F7); }
+    .bg-cyan   { background: linear-gradient(135deg, #0284C7, #06B6D4); }
+
+    /* Process section */
+    .process-section { background: linear-gradient(180deg, #F8FBFF 0%, white 100%); }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 60px; position: relative; }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 38px; left: 12%; right: 12%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 0;
+    }
+    .process-step { text-align: center; position: relative; z-index: 1; padding: 0 16px; }
+    .step-num {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 8px 25px rgba(0,87,255,0.35);
+    }
+    .step-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .step-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    @media (max-width: 1024px) {
+      .services-grid-main { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .process-steps::before { display: none; }
+    }
+    @media (max-width: 600px) {
+      .services-grid-main { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+     <div class="nav-logo-icon"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Idemu Sistem</span>
+      <span class="nav-logo-sub">PT Idemu Sistem Sinergi</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="about.html">Tentang</a></li>
+    <li><a href="services.html" class="active">Layanan</a></li>
+    <li><a href="portfolio.html">Portofolio</a></li>
+    <li><a href="contact.html" class="nav-cta">Hubungi Kami</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="section-badge animate">Apa yang Kami Tawarkan</div>
+  <h1 class="page-hero-title animate delay-1">Layanan <span style="color:var(--primary);">Profesional</span> Kami</h1>
+  <p class="page-hero-sub animate delay-2">Solusi teknologi komprehensif yang dirancang untuk mendorong pertumbuhan dan efisiensi bisnis Anda di era digital.</p>
+</div>
+
+<section class="services-main">
+  <div class="services-grid-main">
+
+    <div class="svc-card animate delay-1">
+      <div class="svc-card-top bg-blue">
+        <div class="svc-icon-wrap"><i class="fas fa-chart-line"></i></div>
+        <div class="svc-name">Digital Marketing</div>
+        <div class="svc-tagline">Tingkatkan brand visibility Anda</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Meningkatkan visibilitas brand melalui strategi SEO, social media marketing, dan iklan digital yang terukur dan berbasis data.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> Search Engine Optimization (SEO)</li>
+          <li><i class="fas fa-check-circle"></i> Social Media Management</li>
+          <li><i class="fas fa-check-circle"></i> Google & Meta Ads</li>
+          <li><i class="fas fa-check-circle"></i> Email Marketing Campaign</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-card animate delay-2">
+      <div class="svc-card-top bg-orange">
+        <div class="svc-icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+        <div class="svc-name">Mobile App Development</div>
+        <div class="svc-tagline">Aplikasi modern untuk semua platform</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Pengembangan aplikasi Android dan iOS yang modern, responsif, dan mudah digunakan dengan teknologi terkini.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> Android & iOS Development</li>
+          <li><i class="fas fa-check-circle"></i> React Native / Flutter</li>
+          <li><i class="fas fa-check-circle"></i> UI/UX Mobile Optimized</li>
+          <li><i class="fas fa-check-circle"></i> API Integration & Backend</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-card animate delay-3">
+      <div class="svc-card-top bg-green">
+        <div class="svc-icon-wrap"><i class="fas fa-laptop-code"></i></div>
+        <div class="svc-name">Website Design & Development</div>
+        <div class="svc-tagline">Website profesional & responsif</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Pembuatan website profesional, responsif, cepat, dan sesuai dengan kebutuhan serta identitas bisnis Anda.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> Custom Website Development</li>
+          <li><i class="fas fa-check-circle"></i> E-Commerce Solution</li>
+          <li><i class="fas fa-check-circle"></i> CMS Integration</li>
+          <li><i class="fas fa-check-circle"></i> Speed & SEO Optimization</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-card animate delay-1">
+      <div class="svc-card-top bg-pink">
+        <div class="svc-icon-wrap"><i class="fas fa-pen-ruler"></i></div>
+        <div class="svc-name">UI/UX Design</div>
+        <div class="svc-tagline">Desain yang indah & intuitif</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Mendesain tampilan aplikasi dan website yang menarik, intuitif, dan mudah digunakan untuk meningkatkan user experience.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> User Research & Wireframing</li>
+          <li><i class="fas fa-check-circle"></i> Prototype & Mockup</li>
+          <li><i class="fas fa-check-circle"></i> Design System Creation</li>
+          <li><i class="fas fa-check-circle"></i> Usability Testing</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-card animate delay-2">
+      <div class="svc-card-top bg-purple">
+        <div class="svc-icon-wrap"><i class="fas fa-file-alt"></i></div>
+        <div class="svc-name">Article Writing & SEO Expert</div>
+        <div class="svc-tagline">Konten berkualitas & SEO friendly</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Pembuatan artikel dan konten SEO friendly yang berkualitas tinggi untuk meningkatkan ranking organik di mesin pencari.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> Keyword Research & Strategy</li>
+          <li><i class="fas fa-check-circle"></i> SEO-Optimized Article Writing</li>
+          <li><i class="fas fa-check-circle"></i> Blog & Content Planning</li>
+          <li><i class="fas fa-check-circle"></i> On-Page SEO Optimization</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <div class="svc-card animate delay-3">
+      <div class="svc-card-top bg-cyan">
+        <div class="svc-icon-wrap"><i class="fas fa-server"></i></div>
+        <div class="svc-name">IT Consulting & Support</div>
+        <div class="svc-tagline">Solusi & dukungan teknis andal</div>
+      </div>
+      <div class="svc-card-body">
+        <p class="svc-desc">Konsultasi teknologi dan dukungan teknis profesional untuk mengoptimalkan infrastruktur IT dan efisiensi operasional bisnis Anda.</p>
+        <ul class="svc-features">
+          <li><i class="fas fa-check-circle"></i> IT Strategy Consulting</li>
+          <li><i class="fas fa-check-circle"></i> Infrastructure Assessment</li>
+          <li><i class="fas fa-check-circle"></i> Technical Support & Maintenance</li>
+          <li><i class="fas fa-check-circle"></i> Cloud Migration Assistance</li>
+        </ul>
+        <a href="contact.html" class="svc-cta">Konsultasi Sekarang <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="text-center animate">
+    <div class="section-badge">Cara Kerja Kami</div>
+    <h2 class="section-title">Proses Kerja yang <span>Terstruktur</span></h2>
+    <p class="section-sub">Kami mengikuti proses kerja yang terstruktur untuk memastikan setiap proyek selesai tepat waktu dan berkualitas tinggi.</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step animate delay-1">
+      <div class="step-num">1</div>
+      <div class="step-title">Konsultasi</div>
+      <div class="step-desc">Kami mendengarkan kebutuhan dan tujuan bisnis Anda secara mendalam.</div>
+    </div>
+    <div class="process-step animate delay-2">
+      <div class="step-num">2</div>
+      <div class="step-title">Perencanaan</div>
+      <div class="step-desc">Tim kami merancang solusi dan roadmap proyek yang sesuai kebutuhan.</div>
+    </div>
+    <div class="process-step animate delay-3">
+      <div class="step-num">3</div>
+      <div class="step-title">Eksekusi</div>
+      <div class="step-desc">Pengembangan dilakukan dengan standar kualitas tinggi dan komunikasi aktif.</div>
+    </div>
+    <div class="process-step animate delay-4">
+      <div class="step-num">4</div>
+      <div class="step-title">Delivery</div>
+      <div class="step-desc">Proyek diserahkan tepat waktu beserta dukungan purna jual yang berkelanjutan.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="background:linear-gradient(135deg,var(--primary),#0040CC);padding:80px 5%;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.05);top:-100px;right:-80px;"></div>
+  <h2 class="animate" style="font-size:clamp(24px,4vw,42px);font-weight:800;color:white;letter-spacing:-1px;margin-bottom:14px;">Tertarik dengan Layanan Kami?</h2>
+  <p class="animate delay-1" style="color:rgba(255,255,255,0.75);font-size:17px;margin-bottom:36px;">Hubungi kami sekarang untuk konsultasi gratis dan penawaran terbaik.</p>
+  <div class="animate delay-2" style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;">
+    <a href="contact.html" class="btn btn-white">Hubungi Kami <i class="fas fa-arrow-right"></i></a>
+    <a href="portfolio.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">Lihat Portofolio</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="nav-logo-icon" style="width:38px;height:38px;"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+        <div>
+          <div class="footer-brand-name">PT Idemu Sistem Sinergi</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);">Solusi Digital Terpercaya</div>
+        </div>
+      </div>
+      <p class="footer-desc">Mitra terpercaya dalam transformasi digital. Kami menghadirkan solusi IT yang inovatif dan berkualitas tinggi untuk bisnis Anda.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigasi</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">Tentang Kami</a></li>
+        <li><a href="services.html">Layanan</a></li>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="contact.html">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="#">Digital Marketing</a></li>
+        <li><a href="#">Mobile App Dev</a></li>
+        <li><a href="#">Web Development</a></li>
+        <li><a href="#">UI/UX Design</a></li>
+        <li><a href="#">IT Consulting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Kontak</div>
+      <div class="footer-contact-item"><i class="fas fa-map-marker-alt footer-contact-icon"></i><span>Menara Cakrawala Lt 12, Unit 05A, Jl. M.H. Thamrin No.9, Kebon Sirih, Jakarta Pusat 10340</span></div>
+      <div class="footer-contact-item"><i class="fas fa-envelope footer-contact-icon"></i><span>info@idemusistem.co.id</span></div>
+      <div class="footer-contact-item"><i class="fas fa-phone footer-contact-icon"></i><span>+62 21 XXXX XXXX</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 PT Idemu Sistem Sinergi. Hak cipta dilindungi.</span>
+    <span>Dibuat dengan <i class="fas fa-heart" style="color:#f43f5e;"></i> di Jakarta</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

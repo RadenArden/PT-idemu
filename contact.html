@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hubungi Kami – PT Idemu Sistem Sinergi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      align-items: flex-start;
+    }
+    /* Info side */
+    
+    .contact-info-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    .contact-info-sub { font-size: 15px; color: var(--text-muted); line-height: 1.8; margin-bottom: 36px; }
+    .info-cards { display: flex; flex-direction: column; gap: 18px; }
+    .info-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      transition: var(--transition);
+    }
+    .info-card:hover { transform: translateX(5px); box-shadow: var(--shadow); border-color: rgba(0,87,255,0.2); }
+    .info-card-icon {
+      width: 48px; height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 19px;
+      flex-shrink: 0;
+    }
+    .info-card-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .info-card-value {
+      font-size: 14.5px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.7;
+    }
+
+    /* Form side */
+    .contact-form-wrap {
+      background: white;
+      border-radius: 20px;
+      padding: 44px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(0,87,255,0.08);
+    }
+    .form-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .form-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      letter-spacing: 0.2px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14.5px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      background: #FAFBFF;
+      transition: var(--transition);
+      outline: none;
+      resize: none;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(0,87,255,0.08);
+    }
+    .form-control::placeholder { color: var(--text-muted); opacity: 0.7; }
+    .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%236B7494' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,87,255,0.4);
+    }
+    .submit-btn:active { transform: translateY(0); }
+    .submit-btn.loading { opacity: 0.75; pointer-events: none; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px; right: 30px;
+      background: white;
+      border-radius: 14px;
+      padding: 18px 24px;
+      box-shadow: 0 10px 40px rgba(0,87,255,0.2);
+      border-left: 4px solid #00B96B;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 9999;
+    }
+    .toast.show { transform: translateX(0); }
+    .toast i { color: #00B96B; font-size: 18px; }
+
+    /* Map */
+    .map-section { background: white; padding-top: 0; }
+    .map-wrap {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    .map-wrap iframe { display: block; }
+
+    /* Quick contact bar */
+    .quick-bar {
+      background: var(--primary-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .quick-bar-text strong { font-size: 16px; font-weight: 700; color: var(--text); display: block; }
+    .quick-bar-text span { font-size: 13px; color: var(--text-muted); }
+    .quick-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .quick-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 9px;
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .ql-wa { background: #25D366; color: white; }
+    .ql-wa:hover { background: #1ebe59; transform: translateY(-2px); }
+    .ql-email { background: white; color: var(--primary); border: 1.5px solid var(--border); }
+    .ql-email:hover { border-color: var(--primary); transform: translateY(-2px); }
+
+    @media (max-width: 1024px) { .contact-layout { grid-template-columns: 1fr; gap: 40px; } }
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 28px 22px; }
+      .quick-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+     <div class="nav-logo-icon"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Idemu Sistem</span>
+      <span class="nav-logo-sub">PT Idemu Sistem Sinergi</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="about.html">Tentang</a></li>
+    <li><a href="services.html">Layanan</a></li>
+    <li><a href="portfolio.html">Portofolio</a></li>
+    <li><a href="contact.html" class="nav-cta active">Hubungi Kami</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="section-badge animate">Kami Siap Membantu</div>
+  <h1 class="page-hero-title animate delay-1">Hubungi <span style="color:var(--primary);">Kami</span></h1>
+  <p class="page-hero-sub animate delay-2">Ada pertanyaan atau ingin berdiskusi tentang proyek Anda? Tim kami siap merespons dengan cepat.</p>
+</div>
+
+<section>
+  <div class="contact-layout">
+    <!-- Info -->
+    <div class="animate">
+      <div class="contact-info-title">Informasi Kontak</div>
+      <p class="contact-info-sub">Kami berkomitmen untuk merespons setiap pesan dalam waktu 1x24 jam di hari kerja. Jangan ragu untuk menghubungi kami!</p>
+      <div class="info-cards">
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="info-card-label">Alamat Kantor</div>
+            <div class="info-card-value">Menara Cakrawala Lt 12, Unit 05A<br>Jl. M.H. Thamrin No.9, Kebon Sirih<br>Jakarta Pusat 10340, Indonesia</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="info-card-label">Email</div>
+            <div class="info-card-value">info@idemusistem.co.id<br>support@idemusistem.co.id</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-phone-alt"></i></div>
+          <div>
+            <div class="info-card-label">Telepon</div>
+            <div class="info-card-value">+62 21 XXXX XXXX<br>+62 8XX XXXX XXXX (WhatsApp)</div>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="info-card-label">Jam Operasional</div>
+            <div class="info-card-value">Senin – Jumat: 08.00 – 17.00 WIB<br>Sabtu: 09.00 – 13.00 WIB</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-bar">
+        <div class="quick-bar-text">
+          <strong>Butuh respons cepat?</strong>
+          <span>Hubungi kami langsung via WhatsApp atau Email</span>
+        </div>
+        <div class="quick-links">
+          <a href="https://wa.me/62812345678" class="quick-link ql-wa" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+          <a href="mailto:info@idemusistem.co.id" class="quick-link ql-email"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form-wrap animate delay-2">
+      <div class="form-title">Kirim Pesan</div>
+      <p class="form-sub">Isi formulir di bawah ini dan tim kami akan menghubungi Anda segera.</p>
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Nama Depan *</label>
+            <input type="text" id="fname" class="form-control" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Nama Belakang *</label>
+            <input type="text" id="lname" class="form-control" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email *</label>
+          <input type="email" id="email" class="form-control" placeholder="john@perusahaan.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="phone">Nomor WhatsApp</label>
+          <input type="tel" id="phone" class="form-control" placeholder="+62 812 XXXX XXXX">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="service">Layanan yang Dibutuhkan</label>
+          <select id="service" class="form-control form-select">
+            <option value="">Pilih layanan...</option>
+            <option>Digital Marketing</option>
+            <option>Mobile App Development</option>
+            <option>Website Design & Development</option>
+            <option>UI/UX Design</option>
+            <option>Article Writing & SEO</option>
+            <option>IT Consulting & Support</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="message">Pesan *</label>
+          <textarea id="message" class="form-control" rows="5" placeholder="Ceritakan kebutuhan atau proyek Anda..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Kirim Pesan
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section" style="padding-bottom: 100px;">
+  <div class="text-center animate" style="margin-bottom:40px;">
+    <div class="section-badge">Lokasi Kami</div>
+    <h2 class="section-title">Temukan Kami di <span>Jakarta Pusat</span></h2>
+  </div>
+  <div class="map-wrap animate delay-1">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.539!2d106.82208!3d-6.19346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d87f04d58b%3A0x2b78b90f4e89b5c5!2sMenara%20Cakrawala%2C%20Jakarta!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+      width="100%" height="420" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="nav-logo-icon" style="width:38px;height:38px;"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+        <div>
+          <div class="footer-brand-name">PT Idemu Sistem Sinergi</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);">Solusi Digital Terpercaya</div>
+        </div>
+      </div>
+      <p class="footer-desc">Mitra terpercaya dalam transformasi digital. Kami menghadirkan solusi IT yang inovatif dan berkualitas tinggi.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigasi</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">Tentang Kami</a></li>
+        <li><a href="services.html">Layanan</a></li>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="contact.html">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="services.html">Digital Marketing</a></li>
+        <li><a href="services.html">Mobile App Dev</a></li>
+        <li><a href="services.html">Web Development</a></li>
+        <li><a href="services.html">UI/UX Design</a></li>
+        <li><a href="services.html">IT Consulting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Kontak</div>
+      <div class="footer-contact-item"><i class="fas fa-map-marker-alt footer-contact-icon"></i><span>Menara Cakrawala Lt 12, Unit 05A, Jl. M.H. Thamrin No.9, Kebon Sirih, Jakarta Pusat 10340</span></div>
+      <div class="footer-contact-item"><i class="fas fa-envelope footer-contact-icon"></i><span>info@idemusistem.co.id</span></div>
+      <div class="footer-contact-item"><i class="fas fa-phone footer-contact-icon"></i><span>+62 21 XXXX XXXX</span></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 PT Idemu Sistem Sinergi. Hak cipta dilindungi.</span>
+    <span>Dibuat dengan <i class="fas fa-heart" style="color:#f43f5e;"></i> di Jakarta</span>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  Pesan berhasil dikirim! Kami akan segera menghubungi Anda.
+</div>
+
+<script src="main.js"></script>
+<script>
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const toast = document.getElementById('toast');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const required = form.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(field => {
+      field.style.borderColor = '';
+      if (!field.value.trim()) {
+        field.style.borderColor = '#f43f5e';
+        valid = false;
+      }
+    });
+    if (!valid) return;
+
+    submitBtn.classList.add('loading');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+
+    setTimeout(() => {
+      submitBtn.classList.remove('loading');
+      submitBtn.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
+      submitBtn.style.background = 'linear-gradient(135deg, #00B96B, #00D4A0)';
+      form.reset();
+
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 4000);
+
+      setTimeout(() => {
+        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Kirim Pesan';
+        submitBtn.style.background = '';
+      }, 3000);
+    }, 1800);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PT Idemu Sistem Sinergi – Solusi Digital Inovatif</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(150deg, #F0F5FF 0%, #FAFBFF 50%, white 100%);
+    }
+    .hero-blob {
+      position: absolute;
+      width: 650px; height: 650px;
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      background: linear-gradient(135deg, rgba(0,87,255,0.08), rgba(0,212,255,0.06));
+      top: -150px; right: -150px;
+      animation: blob 10s infinite;
+      pointer-events: none;
+    }
+    .hero-blob-2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+      background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(0,87,255,0.04));
+      bottom: -100px; left: -80px;
+      animation: blob 14s infinite reverse;
+      pointer-events: none;
+    }
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(0,87,255,0.1), rgba(0,212,255,0.1));
+      border: 1px solid rgba(0,87,255,0.2);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      width: fit-content;
+      animation: fadeIn 0.8s ease;
+    }
+    .hero-badge i { font-size: 12px; color: var(--accent); }
+    .hero-title {
+      font-size: clamp(32px, 4.5vw, 60px);
+      letter-spacing: -2px;
+      line-height: 1.1;
+      color: var(--text);
+      margin-bottom: 24px;
+      animation: fadeUp 0.9s ease 0.1s both;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-bottom: 40px;
+      max-width: 520px;
+      animation: fadeUp 0.9s ease 0.2s both;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: fadeUp 0.9s ease 0.3s both;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      animation: fadeUp 0.9s ease 0.4s both;
+    }
+    .hero-stat-val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-stat-label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+    .hero-visual {
+      position: relative;
+      animation: fadeIn 1.2s ease 0.2s both;
+    }
+    .hero-img-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,87,255,0.2);
+    }
+    .hero-img-wrapper img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(0,10,40,0.4) 100%);
+    }
+    .floating-card {
+      position: absolute;
+      background: white;
+      border-radius: 14px;
+      padding: 14px 18px;
+      box-shadow: 0 10px 40px rgba(0,87,255,0.18);
+      border: 1px solid var(--border);
+      animation: float 4s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+    .floating-card.card-1 { bottom: -20px; left: -30px; animation-delay: 0s; }
+    .floating-card.card-2 { top: -20px; right: -20px; animation-delay: 1.5s; }
+    .floating-card-icon {
+      width: 36px; height: 36px;
+      background: var(--primary-light);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 16px;
+    }
+    .floating-card-text strong { display: block; font-size: 13px; font-weight: 700; color: var(--text); }
+    .floating-card-text span { font-size: 11px; color: var(--text-muted); }
+
+    /* ── ABOUT PREVIEW ── */
+    .about-preview {
+      background: white;
+    }
+    .about-preview .grid-2 { gap: 80px; }
+    .about-img {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img img { width: 100%; height: 440px; object-fit: cover; }
+    .about-img-badge {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      background: white;
+      border-radius: 12px;
+      padding: 14px 20px;
+      box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .about-img-badge-icon {
+      width: 44px; height: 44px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 20px;
+    }
+    .about-img-badge strong { display: block; font-size: 20px; font-weight: 800; color: var(--text); }
+    .about-img-badge span { font-size: 12px; color: var(--text-muted); }
+    .about-features { margin: 28px 0 36px; display: flex; flex-direction: column; gap: 14px; }
+    .about-feature {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .about-feature-icon {
+      width: 42px; height: 42px;
+      background: var(--primary-light);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--primary);
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .about-feature-title { font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 3px; }
+    .about-feature-desc { font-size: 14px; color: var(--text-muted); }
+
+    /* ── SERVICES PREVIEW ── */
+    .services-preview { background: linear-gradient(180deg, #F8FBFF 0%, white 100%); }
+    .services-grid { margin-top: 56px; }
+    .service-card {
+      padding: 32px;
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: var(--transition);
+      transform-origin: left;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(0,87,255,0.2); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 58px; height: 58px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .service-card:hover .service-icon { transform: scale(1.05) rotate(-5deg); }
+    .service-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .service-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+    .s1 { background: linear-gradient(135deg, #EEF3FF, #E0EBFF); color: #0057FF; }
+    .s2 { background: linear-gradient(135deg, #FFF4E5, #FFE8C0); color: #FF8A00; }
+    .s3 { background: linear-gradient(135deg, #E8FFF3, #C5FFE0); color: #00B96B; }
+    .s4 { background: linear-gradient(135deg, #FFF0F5, #FFD6E7); color: #E91E8C; }
+    .s5 { background: linear-gradient(135deg, #F3EDFF, #E4D4FF); color: #7C3AED; }
+    .s6 { background: linear-gradient(135deg, #E5F8FF, #C0EEFF); color: #0284C7; }
+
+    /* ── WHY US ── */
+    .why-us {
+      background: var(--dark);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .why-us::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,87,255,0.15) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      pointer-events: none;
+    }
+    .why-us .section-title { color: white; }
+    .why-us .section-sub { color: rgba(255,255,255,0.6); }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transition: var(--transition);
+    }
+    .why-card:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-5px);
+      border-color: rgba(0,87,255,0.4);
+    }
+    .why-card:hover::before { transform: scaleX(1); }
+    .why-icon {
+      width: 68px; height: 68px;
+      background: linear-gradient(135deg, rgba(0,87,255,0.3), rgba(0,212,255,0.2));
+      border-radius: 16px;
+      margin: 0 auto 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      color: var(--accent);
+    }
+    .why-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+    .why-desc { font-size: 13.5px; color: rgba(255,255,255,0.55); line-height: 1.75; }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, #0040CC 50%, #002E99 100%);
+      padding: 80px 5%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      top: -150px; right: -100px;
+    }
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      bottom: -100px; left: -80px;
+    }
+    .cta-title {
+      font-size: clamp(26px, 4vw, 44px);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-btns {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 1024px) {
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── MOBILE: 768px ke bawah ── */
+    @media (max-width: 768px) {
+      /* Hero: text dulu, gambar di bawah */
+      .hero {
+        padding: 100px 5% 60px;
+        min-height: auto;
+        align-items: flex-start;
+      }
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      /* Visual tetap di bawah text */
+      .hero-visual { order: 2; }
+      .hero-left { order: 1; }
+
+      /* Hero text lebih compact */
+      .hero-badge {
+        font-size: 12px;
+        padding: 7px 14px;
+        margin-bottom: 20px;
+      }
+      .hero-sub {
+        font-size: 15px;
+        margin-bottom: 28px;
+        max-width: 100%;
+      }
+
+      /* Buttons full-width, rapi */
+      .hero-btns {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero-btns .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 20px;
+        font-size: 14px;
+      }
+
+      /* Stats: 3 kolom rata */
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+      }
+      .hero-stats > div {
+        padding: 0 8px;
+        border-right: 1px solid var(--border);
+      }
+      .hero-stats > div:last-child { border-right: none; }
+      .hero-stat-val { font-size: 24px; }
+      .hero-stat-label { font-size: 11px; margin-top: 3px; }
+
+      /* Hero image lebih pendek, floating cards diatur ulang */
+      .hero-img-wrapper img { height: 240px; }
+      .floating-card {
+        padding: 10px 13px;
+        border-radius: 12px;
+        gap: 8px;
+      }
+      .floating-card.card-1 {
+        left: 12px;
+        bottom: 12px;
+        animation: none; /* Matikan float biar ga ganggu layout */
+      }
+      .floating-card.card-2 {
+        right: 12px;
+        top: 12px;
+        animation: none;
+      }
+      .floating-card-icon {
+        width: 30px; height: 30px;
+        font-size: 13px;
+        border-radius: 7px;
+      }
+      .floating-card-text strong { font-size: 12px; }
+      .floating-card-text span { font-size: 10px; }
+
+      /* About preview */
+      .about-preview .grid-2 { gap: 32px; }
+      .about-img img { height: 260px; }
+      .about-img-badge {
+        left: 16px; bottom: 16px;
+        padding: 10px 14px;
+        gap: 10px;
+      }
+      .about-img-badge-icon {
+        width: 36px; height: 36px;
+        font-size: 16px;
+      }
+      .about-img-badge strong { font-size: 16px; }
+      .about-img-badge span { font-size: 11px; }
+      .about-features { gap: 12px; margin: 20px 0 28px; }
+      .about-feature-icon {
+        width: 38px; height: 38px;
+        font-size: 15px;
+      }
+      .about-feature-title { font-size: 14px; }
+      .about-feature-desc { font-size: 13px; }
+
+      /* Services: 2 kolom di tablet */
+      .services-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 14px; margin-top: 36px; }
+      .service-card { padding: 24px 20px; }
+      .service-icon { width: 50px; height: 50px; font-size: 20px; margin-bottom: 16px; border-radius: 12px; }
+      .service-title { font-size: 15px; margin-bottom: 8px; }
+      .service-desc { font-size: 13px; }
+
+      /* Why Us: 2 kolom */
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-top: 40px;
+      }
+      .why-card { padding: 24px 20px; }
+      .why-icon { width: 56px; height: 56px; font-size: 22px; margin-bottom: 14px; }
+      .why-title { font-size: 15px; }
+      .why-desc { font-size: 13px; }
+
+      /* CTA Banner */
+      .cta-banner { padding: 60px 5%; }
+      .cta-sub { font-size: 15px; margin-bottom: 28px; }
+      .cta-btns { flex-direction: column; align-items: stretch; gap: 10px; max-width: 300px; margin: 0 auto; }
+      .cta-btns .btn { justify-content: center; width: 100%; }
+    }
+
+    /* ── MOBILE KECIL: 480px ke bawah ── */
+    @media (max-width: 480px) {
+      .hero { padding: 88px 4% 50px; }
+
+      /* Stats tetap 3 kolom tapi lebih compact */
+      .hero-stat-val { font-size: 20px; }
+      .hero-stat-label { font-size: 10px; }
+
+      /* Hero image lebih pendek */
+      .hero-img-wrapper img { height: 200px; }
+      /* Sembunyikan floating cards di layar sangat kecil, ganggu layout */
+      .floating-card { display: none; }
+
+      /* Services: 1 kolom */
+      .services-grid { grid-template-columns: 1fr !important; gap: 10px; }
+      .service-card {
+        padding: 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 14px;
+        text-align: left;
+      }
+      .service-icon {
+        width: 46px; height: 46px;
+        font-size: 18px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+      .service-card-body { flex: 1; }
+      .service-title { font-size: 14px; margin-bottom: 5px; }
+      .service-desc { font-size: 12.5px; line-height: 1.6; }
+
+      /* Why Us: 1 kolom dengan row layout */
+      .why-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 30px; }
+      .why-card {
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        text-align: left;
+      }
+      .why-icon {
+        width: 50px; height: 50px;
+        font-size: 20px;
+        border-radius: 12px;
+        flex-shrink: 0;
+        margin: 0;
+      }
+      .why-card-body { flex: 1; }
+      .why-title { font-size: 14px; margin-bottom: 4px; }
+      .why-desc { font-size: 12.5px; }
+
+      /* About image lebih compact */
+      .about-img img { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+     <div class="nav-logo-icon"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Idemu Sistem</span>
+      <span class="nav-logo-sub">PT Idemu Sistem Sinergi</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Beranda</a></li>
+    <li><a href="about.html">Tentang</a></li>
+    <li><a href="services.html">Layanan</a></li>
+    <li><a href="portfolio.html">Portofolio</a></li>
+    <li><a href="contact.html" class="nav-cta">Hubungi Kami</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob-2"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-badge"><i class="fas fa-star"></i> Mitra Transformasi Digital Anda</div>
+      <h1 class="hero-title">Solusi Digital Inovatif untuk <span class="highlight">Transformasi Bisnis</span> Anda</h1>
+      <p class="hero-sub">PT Idemu Sistem Sinergi adalah perusahaan teknologi informasi yang menghadirkan solusi digital modern untuk membantu bisnis berkembang di era digital.</p>
+      <div class="hero-btns">
+        <a href="about.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Tentang Kami</a>
+        <a href="contact.html" class="btn btn-outline"><i class="fas fa-phone"></i> Hubungi Kami</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val"><span data-target="50" data-suffix="+">50+</span></div>
+          <div class="hero-stat-label">Proyek Selesai</div>
+        </div>
+        <div>
+          <div class="hero-stat-val"><span data-target="30" data-suffix="+">30+</span></div>
+          <div class="hero-stat-label">Klien Puas</div>
+        </div>
+        <div>
+          <div class="hero-stat-val"><span data-target="5" data-suffix="+">5+</span></div>
+          <div class="hero-stat-label">Tahun Pengalaman</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-img-wrapper">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80" alt="Tim IT profesional">
+        <div class="hero-img-overlay"></div>
+      </div>
+      <div class="floating-card card-1">
+        <div class="floating-card-icon"><i class="fas fa-check"></i></div>
+        <div class="floating-card-text">
+          <strong>Proyek Sukses</strong>
+          <span>50+ klien terbantu</span>
+        </div>
+      </div>
+      <div class="floating-card card-2">
+        <div class="floating-card-icon"><i class="fas fa-shield-alt"></i></div>
+        <div class="floating-card-text">
+          <strong>Terpercaya</strong>
+          <span>Kualitas terjamin</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT PREVIEW -->
+<section class="about-preview">
+  <div class="grid-2">
+    <div class="about-img animate">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Tim Idemu">
+      <div class="about-img-badge">
+        <div class="about-img-badge-icon"><i class="fas fa-trophy"></i></div>
+        <div>
+          <strong>5+ Tahun</strong>
+          <span>Pengalaman IT Profesional</span>
+        </div>
+      </div>
+    </div>
+    <div class="animate delay-2">
+      <div class="section-badge">Tentang Kami</div>
+      <h2 class="section-title">Kami Membantu Bisnis <span>Tumbuh</span> di Era Digital</h2>
+      <p style="color: var(--text-muted); font-size:16px; line-height:1.85; margin-bottom:8px;">
+        PT Idemu Sistem Sinergi adalah perusahaan IT yang berfokus pada pengembangan teknologi dan transformasi digital. Kami membantu bisnis mencapai efisiensi dan pertumbuhan melalui solusi teknologi yang inovatif dan terpercaya.
+      </p>
+      <div class="about-features">
+        <div class="about-feature">
+          <div class="about-feature-icon"><i class="fas fa-users"></i></div>
+          <div>
+            <div class="about-feature-title">Tim yang Berpengalaman</div>
+            <div class="about-feature-desc">Tenaga ahli IT bersertifikat dengan pengalaman multi-industri.</div>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon"><i class="fas fa-lightbulb"></i></div>
+          <div>
+            <div class="about-feature-title">Solusi yang Inovatif</div>
+            <div class="about-feature-desc">Menggunakan teknologi terkini untuk setiap solusi bisnis Anda.</div>
+          </div>
+        </div>
+        <div class="about-feature">
+          <div class="about-feature-icon"><i class="fas fa-headset"></i></div>
+          <div>
+            <div class="about-feature-title">Support Berkelanjutan</div>
+            <div class="about-feature-desc">Dukungan teknis yang siap membantu kapanpun Anda butuhkan.</div>
+          </div>
+        </div>
+      </div>
+      <a href="about.html" class="btn btn-primary">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES PREVIEW -->
+<section class="services-preview">
+  <div class="text-center animate">
+    <div class="section-badge">Layanan Kami</div>
+    <h2 class="section-title">Solusi Teknologi untuk <span>Kebutuhan Bisnis</span> Anda</h2>
+    <p class="section-sub">Kami menyediakan berbagai layanan IT komprehensif yang dirancang untuk mendorong pertumbuhan bisnis Anda.</p>
+  </div>
+  <div class="grid-3 services-grid" style="margin-top:56px;">
+    <div class="service-card animate delay-1">
+      <div class="service-icon s1"><i class="fas fa-chart-line"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">Digital Marketing</div>
+        <div class="service-desc">Meningkatkan visibilitas brand melalui strategi SEO, social media marketing, dan iklan digital yang terukur.</div>
+      </div>
+    </div>
+    <div class="service-card animate delay-2">
+      <div class="service-icon s2"><i class="fas fa-mobile-alt"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">Mobile App Development</div>
+        <div class="service-desc">Pengembangan aplikasi Android dan iOS yang modern, responsif, dan mudah digunakan.</div>
+      </div>
+    </div>
+    <div class="service-card animate delay-3">
+      <div class="service-icon s3"><i class="fas fa-laptop-code"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">Website Design & Development</div>
+        <div class="service-desc">Pembuatan website profesional, responsif, dan sesuai kebutuhan bisnis Anda.</div>
+      </div>
+    </div>
+    <div class="service-card animate delay-2">
+      <div class="service-icon s4"><i class="fas fa-pen-ruler"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">UI/UX Design</div>
+        <div class="service-desc">Mendesain tampilan aplikasi dan website yang menarik, intuitif, dan mudah digunakan pengguna.</div>
+      </div>
+    </div>
+    <div class="service-card animate delay-3">
+      <div class="service-icon s5"><i class="fas fa-file-alt"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">Article Writing & SEO Expert</div>
+        <div class="service-desc">Pembuatan konten artikel SEO friendly untuk meningkatkan ranking di mesin pencari.</div>
+      </div>
+    </div>
+    <div class="service-card animate delay-4">
+      <div class="service-icon s6"><i class="fas fa-server"></i></div>
+      <div class="service-card-body">
+        <div class="service-title">IT Consulting & Support</div>
+        <div class="service-desc">Konsultasi teknologi dan dukungan teknis profesional untuk kebutuhan bisnis Anda.</div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center" style="margin-top: 44px;">
+    <a href="services.html" class="btn btn-outline">Lihat Semua Layanan <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-us">
+  <div class="text-center animate" style="position:relative;z-index:1;">
+    <div class="section-badge">Keunggulan Kami</div>
+    <h2 class="section-title" style="color:white;">Kenapa Memilih <span>Idemu Sistem?</span></h2>
+    <p class="section-sub">Kami berkomitmen memberikan layanan terbaik yang berorientasi pada hasil nyata untuk bisnis Anda.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card animate delay-1">
+      <div class="why-icon"><i class="fas fa-users-cog"></i></div>
+      <div class="why-card-body">
+        <div class="why-title">Tim Profesional</div>
+        <div class="why-desc">Didukung oleh tim berpengalaman di bidang IT yang siap memberikan solusi terbaik.</div>
+      </div>
+    </div>
+    <div class="why-card animate delay-2">
+      <div class="why-icon"><i class="fas fa-rocket"></i></div>
+      <div class="why-card-body">
+        <div class="why-title">Solusi Inovatif</div>
+        <div class="why-desc">Menggunakan teknologi terkini dan metodologi modern untuk setiap proyek yang kami kerjakan.</div>
+      </div>
+    </div>
+    <div class="why-card animate delay-3">
+      <div class="why-icon"><i class="fas fa-award"></i></div>
+      <div class="why-card-body">
+        <div class="why-title">Berpengalaman</div>
+        <div class="why-desc">Lebih dari 5 tahun berpengalaman melayani berbagai klien dari berbagai industri.</div>
+      </div>
+    </div>
+    <div class="why-card animate delay-4">
+      <div class="why-icon"><i class="fas fa-headset"></i></div>
+      <div class="why-card-body">
+        <div class="why-title">Support Berkelanjutan</div>
+        <div class="why-desc">Layanan dukungan teknis yang responsif dan siap membantu Anda kapanpun dibutuhkan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2 class="cta-title animate">Siap Memulai Transformasi Digital Bisnis Anda?</h2>
+  <p class="cta-sub animate delay-1">Hubungi kami sekarang dan dapatkan konsultasi gratis bersama tim ahli kami.</p>
+  <div class="cta-btns animate delay-2">
+    <a href="contact.html" class="btn btn-white">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+    <a href="portfolio.html" class="btn" style="background:rgba(255,255,255,0.15);color:white;border-color:rgba(255,255,255,0.3);">Lihat Portofolio <i class="fas fa-folder-open"></i></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="nav-logo-icon" style="width:38px;height:38px;"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+        <div>
+          <div class="footer-brand-name">PT Idemu Sistem Sinergi</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);">Solusi Digital Terpercaya</div>
+        </div>
+      </div>
+      <p class="footer-desc">Mitra terpercaya dalam transformasi digital. Kami menghadirkan solusi IT yang inovatif dan berkualitas tinggi untuk bisnis Anda.</p>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigasi</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">Tentang Kami</a></li>
+        <li><a href="services.html">Layanan</a></li>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="contact.html">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="services.html">Digital Marketing</a></li>
+        <li><a href="services.html">Mobile App Dev</a></li>
+        <li><a href="services.html">Web Development</a></li>
+        <li><a href="services.html">UI/UX Design</a></li>
+        <li><a href="services.html">IT Consulting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Kontak</div>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+        <span>Menara Cakrawala Lt 12, Unit 05A, Jl. M.H. Thamrin No.9, Kebon Sirih, Jakarta Pusat 10340</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-envelope footer-contact-icon"></i>
+        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b02050d042b020f0e061e1802181f0e0645080445020f">[email&#160;protected]</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-phone footer-contact-icon"></i>
+        <span>+62 21 XXXX XXXX</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 PT Idemu Sistem Sinergi. Hak cipta dilindungi.</span>
+    <span>Dibuat dengan <i class="fas fa-heart" style="color:#f43f5e;"></i> di Jakarta</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

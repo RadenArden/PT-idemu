@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang Kami – PT Idemu Sistem Sinergi</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .about-main { background: white; }
+    .about-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 80px; }
+    .about-intro-img {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,87,255,0.18);
+    }
+    .about-intro-img img { width: 100%; height: 500px; object-fit: cover; }
+    .about-intro-img-badge {
+      position: absolute;
+      bottom: 28px; right: -20px;
+      background: white;
+      border-radius: 14px;
+      padding: 18px 22px;
+      box-shadow: 0 10px 40px rgba(0,87,255,0.2);
+      text-align: center;
+    }
+    .badge-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .badge-lbl { font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
+    .dots-deco {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 120px; height: 120px;
+      background-image: radial-gradient(circle, rgba(0,87,255,0.25) 1.5px, transparent 1.5px);
+      background-size: 16px 16px;
+      pointer-events: none;
+    }
+    .about-detail p { color: var(--text-muted); font-size: 16px; line-height: 1.85; margin-bottom: 18px; }
+    .about-detail p:last-of-type { margin-bottom: 28px; }
+
+    /* Vision Mission */
+    .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 56px; }
+    .vm-card {
+      border-radius: var(--radius);
+      padding: 38px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vm-visi { background: linear-gradient(135deg, var(--primary), #0040CC); color: white; }
+    .vm-misi { background: var(--primary-light); color: var(--text); border: 1px solid var(--border); }
+    .vm-icon {
+      width: 56px; height: 56px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .vm-misi .vm-icon { background: var(--primary); }
+    .vm-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .vm-visi .vm-title { color: white; }
+    .vm-misi .vm-title { color: var(--text); }
+    .vm-text { font-size: 15px; line-height: 1.8; }
+    .vm-visi .vm-text { color: rgba(255,255,255,0.85); }
+    .vm-misi .vm-text { color: var(--text-muted); }
+    .misi-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .misi-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+    .misi-list li::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+    .vm-deco {
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+
+    /* Divisions */
+    .divisions-section { background: linear-gradient(180deg, #F8FBFF 0%, white 100%); }
+    .divisions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+    .div-card {
+      text-align: center;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      background: white;
+      border: 1px solid var(--border);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .div-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      opacity: 0;
+      transition: var(--transition);
+      z-index: 0;
+    }
+    .div-card:hover::after { opacity: 1; }
+    .div-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .div-card > * { position: relative; z-index: 1; }
+    .div-card:hover .div-icon,
+    .div-card:hover .div-title,
+    .div-card:hover .div-desc { color: white; }
+    .div-card:hover .div-icon { background: rgba(255,255,255,0.2); }
+    .div-icon {
+      width: 72px; height: 72px;
+      background: var(--primary-light);
+      border-radius: 18px;
+      margin: 0 auto 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    .div-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      transition: var(--transition);
+    }
+    .div-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      transition: var(--transition);
+    }
+
+    /* Stats band */
+    .stats-band {
+      background: linear-gradient(135deg, var(--primary) 0%, #0040CC 100%);
+      padding: 60px 5%;
+    }
+    .stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      color: white;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,0.7); font-weight: 500; }
+    .stat-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.2);
+      height: 60px;
+      margin: auto;
+    }
+
+    @media (max-width: 1024px) {
+      .about-intro { grid-template-columns: 1fr; gap: 40px; }
+      .about-intro-img-badge { right: 20px; }
+      .vm-grid { grid-template-columns: 1fr; }
+      .divisions-grid { grid-template-columns: 1fr 1fr; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .divisions-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .stat-num { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-icon"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Idemu Sistem</span>
+      <span class="nav-logo-sub">PT Idemu Sistem Sinergi</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Beranda</a></li>
+    <li><a href="about.html" class="active">Tentang</a></li>
+    <li><a href="services.html">Layanan</a></li>
+    <li><a href="portfolio.html">Portofolio</a></li>
+    <li><a href="contact.html" class="nav-cta">Hubungi Kami</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="section-badge animate">Profil Perusahaan</div>
+  <h1 class="page-hero-title animate delay-1">Tentang <span style="color:var(--primary);">PT Idemu Sistem Sinergi</span></h1>
+  <p class="page-hero-sub animate delay-2">Mengenal lebih dekat perusahaan teknologi informasi yang berkomitmen menjadi mitra terpercaya transformasi digital Anda.</p>
+</div>
+
+<!-- ABOUT MAIN -->
+<section class="about-main">
+  <div class="about-intro">
+    <div class="about-intro-img animate">
+      <div class="dots-deco"></div>
+      <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Tim PT Idemu">
+      <div class="about-intro-img-badge">
+        <div class="badge-num">5+</div>
+        <div class="badge-lbl">Tahun Berkarya</div>
+      </div>
+    </div>
+    <div class="about-detail animate delay-2">
+      <div class="section-badge">Siapa Kami</div>
+      <h2 class="section-title">Teknologi yang <span>Menggerakkan</span> Bisnis Anda</h2>
+      <p>PT Idemu Sistem Sinergi merupakan perusahaan teknologi informasi yang berkomitmen menjadi mitra terpercaya dalam transformasi digital. Kami menghadirkan solusi IT yang cerdas, inovatif, dan sesuai kebutuhan bisnis klien.</p>
+      <p>Didirikan dengan semangat untuk membantu bisnis Indonesia berkembang di era digital, kami terus berinovasi menghadirkan layanan teknologi berkualitas tinggi yang memberikan dampak nyata bagi pertumbuhan bisnis klien kami.</p>
+      <p>Dengan tim yang terdiri dari tenaga ahli IT berpengalaman, kami siap menjadi mitra strategis perjalanan transformasi digital bisnis Anda.</p>
+      <a href="contact.html" class="btn btn-primary">Konsultasi Gratis <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <!-- Visi Misi -->
+  <div class="text-center animate">
+    <div class="section-badge">Arah Perusahaan</div>
+    <h2 class="section-title">Visi & <span>Misi</span> Kami</h2>
+  </div>
+  <div class="vm-grid">
+    <div class="vm-card vm-visi animate delay-1">
+      <div class="vm-deco"></div>
+      <div class="vm-icon"><i class="fas fa-eye"></i></div>
+      <div class="vm-title">Visi</div>
+      <div class="vm-text">Menjadi mitra terpercaya dalam transformasi digital dengan solusi teknologi yang inovatif dan berkualitas tinggi, membantu bisnis Indonesia berkembang dan berdaya saing di tingkat global.</div>
+    </div>
+    <div class="vm-card vm-misi animate delay-2">
+      <div class="vm-icon"><i class="fas fa-bullseye"></i></div>
+      <div class="vm-title">Misi</div>
+      <ul class="misi-list">
+        <li>Memberikan layanan IT profesional yang berkualitas tinggi dan berorientasi pada hasil</li>
+        <li>Menghadirkan solusi berbasis teknologi modern yang relevan dengan kebutuhan bisnis</li>
+        <li>Membantu pertumbuhan dan efisiensi bisnis klien melalui inovasi digital</li>
+        <li>Menjaga standar kualitas tinggi dan memastikan kepuasan pelanggan di setiap proyek</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item animate">
+      <div class="stat-num"><span data-target="50" data-suffix="+">0+</span></div>
+      <div class="stat-label">Proyek Selesai</div>
+    </div>
+    <div class="stat-item animate delay-1">
+      <div class="stat-num"><span data-target="30" data-suffix="+">0+</span></div>
+      <div class="stat-label">Klien Puas</div>
+    </div>
+    <div class="stat-item animate delay-2">
+      <div class="stat-num"><span data-target="5" data-suffix="+">0+</span></div>
+      <div class="stat-label">Tahun Pengalaman</div>
+    </div>
+    <div class="stat-item animate delay-3">
+      <div class="stat-num"><span data-target="3" data-suffix="">0</span></div>
+      <div class="stat-label">Divisi Profesional</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVISIONS -->
+<section class="divisions-section">
+  <div class="text-center animate">
+    <div class="section-badge">Struktur Perusahaan</div>
+    <h2 class="section-title">Divisi <span>Profesional</span> Kami</h2>
+    <p class="section-sub">Tiga divisi utama yang saling bersinergi untuk menghadirkan solusi digital terbaik bagi klien.</p>
+  </div>
+  <div class="divisions-grid">
+    <div class="div-card animate delay-1">
+      <div class="div-icon"><i class="fas fa-code"></i></div>
+      <div class="div-title">Programmer</div>
+      <div class="div-desc">Tim developer berpengalaman yang mengembangkan aplikasi web dan mobile menggunakan teknologi modern dan best practices terkini.</div>
+    </div>
+    <div class="div-card animate delay-2">
+      <div class="div-icon"><i class="fas fa-palette"></i></div>
+      <div class="div-title">Web Design</div>
+      <div class="div-desc">Tim desainer kreatif yang merancang tampilan visual yang menarik, intuitif, dan sesuai dengan identitas brand klien.</div>
+    </div>
+    <div class="div-card animate delay-3">
+      <div class="div-icon"><i class="fas fa-bullhorn"></i></div>
+      <div class="div-title">Digital Marketing</div>
+      <div class="div-desc">Tim pemasaran digital yang merancang dan mengeksekusi strategi marketing online untuk meningkatkan brand awareness dan konversi.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <div class="nav-logo-icon" style="width:38px;height:38px;"><img src="assets/logo.jpeg" alt="Logo PT Idemu Sistem Sinergi"></div>
+        <div>
+          <div class="footer-brand-name">PT Idemu Sistem Sinergi</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.4);">Solusi Digital Terpercaya</div>
+        </div>
+      </div>
+      <p class="footer-desc">Mitra terpercaya dalam transformasi digital. Kami menghadirkan solusi IT yang inovatif dan berkualitas tinggi untuk bisnis Anda.</p>
+      <div class="social-links">
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Navigasi</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Beranda</a></li>
+        <li><a href="about.html">Tentang Kami</a></li>
+        <li><a href="services.html">Layanan</a></li>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="contact.html">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Layanan</div>
+      <ul class="footer-links">
+        <li><a href="services.html">Digital Marketing</a></li>
+        <li><a href="services.html">Mobile App Dev</a></li>
+        <li><a href="services.html">Web Development</a></li>
+        <li><a href="services.html">UI/UX Design</a></li>
+        <li><a href="services.html">IT Consulting</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Kontak</div>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt footer-contact-icon"></i>
+        <span>Menara Cakrawala Lt 12, Unit 05A, Jl. M.H. Thamrin No.9, Kebon Sirih, Jakarta Pusat 10340</span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-envelope footer-contact-icon"></i>
+        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="046d6a626b446d60616971776d777061692a676b2a6d60">[email&#160;protected]</a></span>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-phone footer-contact-icon"></i>
+        <span>+62 21 XXXX XXXX</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 PT Idemu Sistem Sinergi. Hak cipta dilindungi.</span>
+    <span>Dibuat dengan <i class="fas fa-heart" style="color:#f43f5e;"></i> di Jakarta</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
